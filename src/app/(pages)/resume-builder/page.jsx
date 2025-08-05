@@ -140,12 +140,15 @@ const ResumeBuilder = () => {
         {/* Features */}
         <div className="mt-24 max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-extrabold text-green-700 text-center mb-6 leading-snug">
-  Why Choose <span className="text-green-900">PK CareerCabin</span> Resume Builder?
-</h2>
-<p className="text-lg md:text-xl text-green-800 text-center max-w-3xl mx-auto mb-12 leading-relaxed">
-  Combining smart AI with sleek design, our resume builder is fast, effective, and completely free.
-  Whether you're making a career switch or applying for your first job, our intelligent tools are here to help you shine.
-</p>
+            Why Choose <span className="text-green-900">PK CareerCabin</span>{" "}
+            Resume Builder?
+          </h2>
+          <p className="text-lg md:text-xl text-green-800 text-center max-w-3xl mx-auto mb-12 leading-relaxed">
+            Combining smart AI with sleek design, our resume builder is fast,
+            effective, and completely free. Whether you're making a career
+            switch or applying for your first job, our intelligent tools are
+            here to help you shine.
+          </p>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[

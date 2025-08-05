@@ -3,6 +3,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { NextAuthProvider } from "./Providers";
+import { ResumeProvider } from "@/context/ResumeContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -111,12 +112,12 @@ export default function RootLayout({ children }) {
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
-      >
+      ><ResumeProvider>
         <NextAuthProvider>
           <Header />
           {children}
           <Footer />
-        </NextAuthProvider>
+        </NextAuthProvider></ResumeProvider>
       </body>
     </html>
   );
