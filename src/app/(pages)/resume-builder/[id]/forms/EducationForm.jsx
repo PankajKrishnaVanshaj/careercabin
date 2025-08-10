@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useResume } from "@/context/ResumeContext";
+import GeneratorAi from "../_components/GeneratorAi";
 
 const defaultEducation = {
   universityName: "",
@@ -16,9 +17,12 @@ const defaultEducation = {
 const EducationForm = () => {
   const { resume, updateSection } = useResume();
 
-  const [educations, setEducations] = useState(() => {
-    return resume.education.length > 0 ? resume.education : [defaultEducation];
-  });
+ const [educations, setEducations] = useState(() => {
+  return Array.isArray(resume?.education) && resume.education.length > 0
+    ? resume.education
+    : [defaultEducation];
+});
+
 
   // Sync to context
   useEffect(() => {
@@ -163,9 +167,27 @@ const EducationForm = () => {
             </div>
 
             <div>
-              <label htmlFor="description" className={labelClass}>
-                Description
-              </label>
+              <div className="flex items-center justify-between">
+                <label htmlFor="description" className={labelClass}>
+                  Description
+                </label>
+                <GeneratorAi
+                  Prompt={`Write a short academic achievement description for someone who studied ${
+                    education.degree || "a degree"
+                  } in ${education.major || "a subject"} at ${
+                    education.universityName || "a university"
+                  }, located in ${education.location || "a location"}, from ${
+                    education.startDate || "start date"
+                  } to ${
+                    education.endDate || "end date"
+                  }. Mention any grades, honors, or research projects.`}
+                  onGenerate={(generatedText) => {
+                    const updated = [...educations];
+                    updated[index].description = generatedText;
+                    setEducations(updated);
+                  }}
+                />
+              </div>
               <textarea
                 name="description"
                 placeholder="e.g., Completed a 4-year honors program with research in AI..."

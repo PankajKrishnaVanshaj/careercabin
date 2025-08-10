@@ -1,11 +1,10 @@
 "use client";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 const ResumeContext = createContext();
 
-const LOCAL_STORAGE_KEY = "resumeData";
-
 const defaultResume = {
+  themeColor: "",
   title: "",
   personalInfo: {
     firstName: "",
@@ -36,20 +35,7 @@ const defaultResume = {
 };
 
 export const ResumeProvider = ({ children }) => {
-  const [resume, setResume] = useState(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
-      return saved ? JSON.parse(saved) : defaultResume;
-    }
-    return defaultResume;
-  });
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(resume));
-    }
-  }, [resume]);
-  console.log(resume.references)
+  const [resume, setResume] = useState(defaultResume);
 
   const updateSection = (section, data) => {
     setResume((prev) => ({

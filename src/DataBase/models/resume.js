@@ -46,6 +46,7 @@ const CertificationSchema = new Schema(
     issuer: { type: String, trim: true },
     date: String,
     link: { type: String, trim: true },
+    description: { type: String, trim: true },
   },
   { _id: false }
 );
@@ -93,6 +94,7 @@ const ReferenceSchema = new Schema(
 
 const ResumeSchema = new Schema(
   {
+    themeColor: { type: String, trim: true },
     title: { type: String, required: true, trim: true },
     personalInfo: {
       firstName: { type: String, trim: true },
@@ -118,7 +120,7 @@ const ResumeSchema = new Schema(
     projects: [ProjectSchema],
     awards: [AwardSchema],
     hobbies: [{ type: String, trim: true }],
-    references: [ReferenceSchema],
+    reference: [ReferenceSchema],
     createdBy: { type: String, required: true, trim: true },
   },
   { timestamps: true }

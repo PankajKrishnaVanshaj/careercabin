@@ -8,20 +8,29 @@ import ProjectForm from "../forms/ProjectForm";
 import AwardCertificationForm from "../forms/AwardCertificationForm";
 import HobbyLanguageSkillForm from "../forms/HobbyLanguageSkillForm";
 import ThemeColor from "./ThemeColor";
+import { useResume } from "@/context/ResumeContext";
+import { useParams } from "next/navigation";
+import axios from "axios";
 
 const forms = [
   { label: "Personal Details", component: <PersonalDetailForm /> },
   { label: "Education", component: <EducationForm /> },
   { label: "Work Experience", component: <ExperienceForm /> },
   { label: "Projects", component: <ProjectForm /> },
-  { label: "Hobbies, Languages & Skills", component: <HobbyLanguageSkillForm /> },
+  {
+    label: "Hobbies, Languages & Skills",
+    component: <HobbyLanguageSkillForm />,
+  },
   { label: "Awards & Certifications", component: <AwardCertificationForm /> },
   { label: "References", component: <ReferenceForm /> },
 ];
 
-
 const FormSection = () => {
   const [activeFormIndex, setActiveFormIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const { resume } = useResume();
+  const params = useParams();
+  const resumeId = params?.id;
 
   const handlePrev = () => {
     if (activeFormIndex > 0) setActiveFormIndex((prev) => prev - 1);
@@ -30,6 +39,19 @@ const FormSection = () => {
   const handleNext = () => {
     if (activeFormIndex < forms.length - 1)
       setActiveFormIndex((prev) => prev + 1);
+  };
+
+  // Save handler
+  const handleSave = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.put(`/api/resume/${resumeId}`, resume);
+      console.log("Saved successfully:", response.data);
+    } catch (error) {
+      console.error("Error saving section:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -48,7 +70,23 @@ const FormSection = () => {
           >
             {form.label}
           </button>
-        ))} <span><ThemeColor/></span>
+        ))}{" "}
+        <span>
+          <ThemeColor />
+        </span>
+        <span>
+          <button
+            onClick={handleSave}
+            disabled={loading}
+            className={`px-4 py-1 rounded-full text-xs font-normal border transition-all duration-200 ${
+              loading
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-white text-green-600 border-green-400 hover:bg-green-100"
+            }`}
+          >
+            {loading ? "Saving..." : "Save Resume"}
+          </button>{" "}
+        </span>
       </div>
 
       {/* Current Form */}

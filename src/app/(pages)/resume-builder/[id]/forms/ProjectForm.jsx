@@ -1,5 +1,6 @@
 import { useResume } from "@/context/ResumeContext";
 import React, { useEffect, useState } from "react";
+import GeneratorAi from "../_components/GeneratorAi";
 
 // Base template for a new project
 const emptyProject = {
@@ -112,7 +113,12 @@ const ProjectForm = () => {
 
           {/* Description */}
           <div className="mt-4">
-            <label className={labelClass}>Project Description</label>
+            <div className="flex items-center justify-between">
+              <label className={labelClass}>Project Description</label>
+
+              <GeneratorAi Prompt={``} onGenerate={(generatedText) => {}} />
+            </div>
+
             <textarea
               name="description"
               placeholder="A job portal platform..."

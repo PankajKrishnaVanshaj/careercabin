@@ -1,16 +1,21 @@
 import { useResume } from "@/context/ResumeContext";
 import React, { useState, useEffect } from "react";
+import GeneratorAi from "../_components/GeneratorAi";
 
 const AwardCertificationForm = () => {
   const { resume, updateSection } = useResume();
 
-  const [awards, setAwards] = useState([
-    { title: "", issuer: "", date: "", description: "" },
-  ]);
+  const [awards, setAwards] = useState(
+    resume.awards && resume.awards.length > 0
+      ? resume.awards
+      : [{ title: "", issuer: "", date: "", description: "" }]
+  );
 
-  const [certifications, setCertifications] = useState([
-    { title: "", issuer: "", date: "", link: "" },
-  ]);
+  const [certifications, setCertifications] = useState(
+    resume.certifications && resume.certifications.length > 0
+      ? resume.certifications
+      : [{ title: "", issuer: "", date: "", link: "", description: "" }]
+  );
 
   // Sync with context whenever awards or certifications change
   useEffect(() => {
@@ -33,7 +38,10 @@ const AwardCertificationForm = () => {
   };
 
   const addAward = () => {
-    setAwards([...awards, { title: "", issuer: "", date: "", description: "" }]);
+    setAwards([
+      ...awards,
+      { title: "", issuer: "", date: "", description: "" },
+    ]);
   };
 
   const removeAward = (index) => {
@@ -100,7 +108,11 @@ const AwardCertificationForm = () => {
               </div>
             </div>
             <div>
-              <label className={labelClass}>Description</label>
+              <div className="flex items-center justify-between">
+                <label className={labelClass}>Description</label>
+
+                <GeneratorAi Prompt={``} onGenerate={(generatedText) => {}} />
+              </div>
               <textarea
                 name="description"
                 value={award.description}
@@ -168,6 +180,21 @@ const AwardCertificationForm = () => {
               </div>
             </div>
             <div>
+              <div className="flex items-center justify-between">
+                <label className={labelClass}>Description</label>
+
+                <GeneratorAi Prompt={``} onGenerate={(generatedText) => {}} />
+              </div>
+              <textarea
+                name="description"
+                value={cert.description}
+                onChange={(e) => handleCertificationChange(index, e)}
+                placeholder="e.g., Validated expertise in cloud architecture and deployment."
+                className={inputClass}
+                rows={3}
+              />
+            </div>
+            <div>
               <label className={labelClass}>
                 Certificate Link{" "}
                 <span className="text-gray-500">(optional)</span>
@@ -198,8 +225,6 @@ const AwardCertificationForm = () => {
           + Add another Certification
         </button>
       </div>
-
-      
     </div>
   );
 };

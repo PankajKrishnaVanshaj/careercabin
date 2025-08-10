@@ -5,13 +5,20 @@ const HobbyLanguageSkillForm = () => {
   const { resume, updateSection } = useResume();
 
   const [hobby, setHobby] = useState('');
-  const [hobbies, setHobbies] = useState([]);
-  const [languageData, setLanguageData] = useState([
-    { language: '', proficiency: '' },
-  ]);
-  const [skills, setSkills] = useState([
-    { name: '', rating: '', type: '' },
-  ]);
+  const [hobbies, setHobbies] = useState(resume?.hobbies || []);
+
+const [languageData, setLanguageData] = useState(
+  resume?.languages?.length
+    ? resume.languages
+    : [{ language: "", proficiency: "" }]
+);
+
+const [skills, setSkills] = useState(
+  resume?.skills?.length
+    ? resume.skills
+    : [{ name: "", rating: "", type: "" }]
+);
+
 
   const inputClass =
     'w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500';
@@ -182,13 +189,13 @@ const HobbyLanguageSkillForm = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-green-600 mb-1">Skill Rating (1-10)</label>
+                <label className="block text-sm font-medium text-green-600 mb-1">Skill Rating (1-5)</label>
                 <input
                   type="number"
                   name="rating"
-                  placeholder="e.g., 8"
+                  placeholder="e.g., 4"
                   min="1"
-                  max="10"
+                  max="5"
                   value={skill.rating}
                   onChange={(e) => handleSkillChange(index, 'rating', e.target.value)}
                   className={inputClass}

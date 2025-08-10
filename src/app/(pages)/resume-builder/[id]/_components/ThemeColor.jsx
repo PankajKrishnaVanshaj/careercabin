@@ -6,43 +6,93 @@ import React, { useState } from "react";
 const ThemeColor = () => {
   const { resume, updateSection } = useResume();
   const [open, setOpen] = useState(false);
-
-  const colors = [
-    "#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#A133FF",
-    "#33FFA1", "#FF7133", "#71FF33", "#7133FF", "#FF3371",
-    "#33FF71", "#3371FF", "#A1FF33", "#33A1FF", "#FF5733",
-    "#5733FF", "#33FF5A", "#5A33FF", "#FF335A", "#335AFF",
-  ];
+  const [inputColor, setInputColor] = useState(resume.themeColor || "#00A86B");
 
   const onColorSelect = (color) => {
     updateSection("themeColor", color);
+    setOpen(false);
   };
 
   return (
     <div>
+      {/* Button */}
       <button
-        className="px-4 py-1 rounded-full text-xs font-normal border border-green-500 text-black"
-        style={{ background: resume.themeColor }}
-        onClick={() => setOpen(!open)}
+        className="px-4 py-1 rounded-full text-xs font-medium border text-black shadow-sm hover:shadow-md transition"
+        style={{
+          background: resume.themeColor || "#00A86B",
+          borderColor: resume.themeColor || "#00A86B",
+        }}
+        onClick={() => setOpen(true)}
       >
-       Theme Colors
+        Theme Color
       </button>
 
+      {/* Dialog */}
       {open && (
-        <>
-          <h2 className="mb-2 text-sm font-bold">Select Theme Color</h2>
-          <div className="grid grid-cols-5 gap-3">
-            {colors.map((item, index) => (
-              <div
-                key={index}
-                className="h-5 w-5 rounded-full cursor-pointer border hover:border-black"
-                style={{ background: item }}
-                onClick={() => onColorSelect(item)}
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fadeIn"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="bg-white rounded-2xl shadow-2xl p-6 w-80 transform scale-95 animate-scaleIn">
+            {/* Header */}
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-base font-semibold text-gray-800">
+                🎨 Pick Theme Color
+              </h2>
+              <button
+                onClick={() => setOpen(false)}
+                className="text-gray-400 hover:text-gray-700 transition"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Color Picker */}
+            <div className="flex items-center gap-3">
+              <input
+                type="color"
+                value={inputColor}
+                onChange={(e) => setInputColor(e.target.value)}
+                className="w-12 h-12 cursor-pointer border rounded"
               />
-            ))}
+              <input
+                type="text"
+                value={inputColor}
+                onChange={(e) => setInputColor(e.target.value)}
+                className="flex-1 border rounded px-2 py-1 text-sm"
+              />
+            </div>
+
+            {/* Save Button */}
+            <button
+              onClick={() => onColorSelect(inputColor)}
+              className="mt-4 w-full py-2 rounded-md text-white font-semibold shadow-sm hover:opacity-90"
+              style={{ background: inputColor }}
+            >
+              Apply Color
+            </button>
           </div>
-        </>
+        </div>
       )}
+
+      {/* Animations */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+          from { transform: scale(0.9); opacity: 0; }
+          to { transform: scale(1); opacity: 1; }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.2s ease-out forwards;
+        }
+        .animate-scaleIn {
+          animation: scaleIn 0.2s ease-out forwards;
+        }
+      `}</style>
     </div>
   );
 };

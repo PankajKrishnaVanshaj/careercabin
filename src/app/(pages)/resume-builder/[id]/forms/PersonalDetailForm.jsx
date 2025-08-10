@@ -1,10 +1,11 @@
 import { useResume } from "@/context/ResumeContext";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import GeneratorAi from "../_components/GeneratorAi";
 
 const PersonalDetailForm = () => {
-   const { resume, updateSection } = useResume();
+  const { resume, updateSection } = useResume();
 
-  const [formData, setFormData] = useState(resume.personalInfo);
+  const [formData, setFormData] = useState(resume?.personalInfo || {});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -12,6 +13,12 @@ const PersonalDetailForm = () => {
     setFormData(updatedFormData);
     updateSection("personalInfo", updatedFormData);
   };
+
+  useEffect(() => {
+  if (resume?.personalInfo) {
+    setFormData(resume.personalInfo);
+  }
+}, [resume]);
 
   const inputClass =
     "w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500";
@@ -34,7 +41,7 @@ const PersonalDetailForm = () => {
               id="firstName"
               name="firstName"
               placeholder="e.g., John"
-              value={formData.firstName}
+              value={formData.firstName || ""}
               onChange={handleChange}
               className={inputClass}
             />
@@ -47,7 +54,7 @@ const PersonalDetailForm = () => {
               id="lastName"
               name="lastName"
               placeholder="e.g., Doe"
-              value={formData.lastName}
+              value={formData.lastName || ""}
               onChange={handleChange}
               className={inputClass}
             />
@@ -64,7 +71,7 @@ const PersonalDetailForm = () => {
               id="email"
               name="email"
               placeholder="e.g., john.doe@example.com"
-              value={formData.email}
+              value={formData.email || ""}
               onChange={handleChange}
               className={inputClass}
             />
@@ -77,7 +84,7 @@ const PersonalDetailForm = () => {
               id="phone"
               name="phone"
               placeholder="e.g., +1 123-456-7890"
-              value={formData.phone}
+              value={formData.phone || ""}
               onChange={handleChange}
               className={inputClass}
             />
@@ -93,7 +100,7 @@ const PersonalDetailForm = () => {
             id="address"
             name="address"
             placeholder="e.g., 123 Main St, New York, NY"
-            value={formData.address}
+            value={formData.address || ""}
             onChange={handleChange}
             className={inputClass}
           />
@@ -109,7 +116,7 @@ const PersonalDetailForm = () => {
               id="jobTitle"
               name="jobTitle"
               placeholder="e.g., Frontend Developer"
-              value={formData.jobTitle}
+              value={formData.jobTitle || ""}
               onChange={handleChange}
               className={inputClass}
             />
@@ -122,7 +129,7 @@ const PersonalDetailForm = () => {
               id="dateOfBirth"
               name="dateOfBirth"
               type="date"
-              value={formData.dateOfBirth}
+              value={formData.dateOfBirth || ""}
               onChange={handleChange}
               className={inputClass}
             />
@@ -138,7 +145,7 @@ const PersonalDetailForm = () => {
             id="nationality"
             name="nationality"
             placeholder="e.g., American"
-            value={formData.nationality}
+            value={formData.nationality || ""}
             onChange={handleChange}
             className={inputClass}
           />
@@ -154,7 +161,7 @@ const PersonalDetailForm = () => {
               id="profileImage"
               name="profileImage"
               placeholder="e.g., https://i.imgur.com/avatar.jpg"
-              value={formData.profileImage}
+              value={formData.profileImage || ""}
               onChange={handleChange}
               className={inputClass}
             />
@@ -168,7 +175,7 @@ const PersonalDetailForm = () => {
               id="portfolio"
               name="portfolio"
               placeholder="e.g., https://pankri.com"
-              value={formData.portfolio}
+              value={formData.portfolio || ""}
               onChange={handleChange}
               className={inputClass}
             />
@@ -185,7 +192,7 @@ const PersonalDetailForm = () => {
               id="linkedIn"
               name="linkedIn"
               placeholder="e.g., https://linkedin.com/in/pankri"
-              value={formData.linkedIn}
+              value={formData.linkedIn || ""}
               onChange={handleChange}
               className={inputClass}
             />
@@ -199,7 +206,7 @@ const PersonalDetailForm = () => {
               id="github"
               name="github"
               placeholder="e.g., https://github.com/pankri"
-              value={formData.github}
+              value={formData.github || ""}
               onChange={handleChange}
               className={inputClass}
             />
@@ -208,14 +215,26 @@ const PersonalDetailForm = () => {
 
         {/* Row 9 */}
         <div>
-          <label className={labelClass} htmlFor="summary">
-            Professional Summary
-          </label>
+          <div className="flex items-center justify-between">
+            <label className={labelClass} htmlFor="summary">
+              Professional Summary
+            </label>
+            <GeneratorAi
+              Prompt={`Write a professional summary for a ${
+                formData.jobTitle || "professional"
+              } based on the following details: ${JSON.stringify(formData)}`}
+              onGenerate={(generatedText) => {
+                const updated = { ...formData, summary: generatedText };
+                setFormData(updated);
+                updateSection("personalInfo", updated);
+              }}
+            />
+          </div>
           <textarea
             id="summary"
             name="summary"
             placeholder="e.g., A passionate frontend developer with 5+ years of experience in building responsive web applications..."
-            value={formData.summary}
+            value={formData.summary || ""}
             onChange={handleChange}
             rows={4}
             className={`${inputClass} resize-none`}

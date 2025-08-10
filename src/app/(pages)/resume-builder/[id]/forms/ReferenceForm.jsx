@@ -4,13 +4,7 @@ import React, { useState, useEffect } from "react";
 const ReferenceForm = () => {
   const { resume, updateSection } = useResume();
 
-  const [reference, setReference] = useState({
-    name: "",
-    position: "",
-    company: "",
-    email: "",
-    phone: "",
-  });
+  const [reference, setReference] = useState(resume.reference || {});
 
   // Sync with context
   useEffect(() => {
@@ -43,7 +37,7 @@ const ReferenceForm = () => {
               id="name"
               name="name"
               placeholder="e.g., John Smith"
-              value={reference.name}
+              value={reference.name || ""}
               onChange={handleChange}
               className={inputClass}
             />
@@ -55,7 +49,7 @@ const ReferenceForm = () => {
               id="position"
               name="position"
               placeholder="e.g., Senior Manager"
-              value={reference.position}
+              value={reference.position || ""}
               onChange={handleChange}
               className={inputClass}
             />
@@ -68,7 +62,7 @@ const ReferenceForm = () => {
             id="company"
             name="company"
             placeholder="e.g., Google LLC"
-            value={reference.company}
+            value={reference.company || ""}
             onChange={handleChange}
             className={inputClass}
           />
@@ -82,7 +76,7 @@ const ReferenceForm = () => {
               name="email"
               type="email"
               placeholder="e.g., john.smith@example.com"
-              value={reference.email}
+              value={reference.email || ""}
               onChange={handleChange}
               className={inputClass}
             />
@@ -95,7 +89,7 @@ const ReferenceForm = () => {
               name="phone"
               type="tel"
               placeholder="e.g., +1 234 567 8901"
-              value={reference.phone}
+              value={reference.phone || ""}
               onChange={handleChange}
               className={inputClass}
             />

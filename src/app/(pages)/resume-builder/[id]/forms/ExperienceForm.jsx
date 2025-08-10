@@ -1,36 +1,38 @@
-import { useResume } from '@/context/ResumeContext';
-import React, { useEffect, useState } from 'react';
+import { useResume } from "@/context/ResumeContext";
+import React, { useEffect, useState } from "react";
+import GeneratorAi from "../_components/GeneratorAi";
 
 const ExperienceForm = () => {
   const { resume, updateSection } = useResume();
 
   const getEmptyExperience = () => ({
-    title: '',
-    companyName: '',
-    location: '',
-    startDate: '',
-    endDate: '',
+    title: "",
+    companyName: "",
+    location: "",
+    startDate: "",
+    endDate: "",
     currentlyWorking: false,
-    responsibilities: [''],
-    achievements: [''],
-    workSummery: '',
+    responsibilities: [""],
+    achievements: [""],
+    workSummery: "",
   });
 
-  const [experiences, setExperiences] = useState(() => {
-    return resume.experience.length > 0
-      ? resume.experience
-      : [getEmptyExperience()];
-  });
+ const [experiences, setExperiences] = useState(() => {
+  return Array.isArray(resume?.experience) && resume.experience.length > 0
+    ? resume.experience
+    : [getEmptyExperience()];
+});
+
 
   useEffect(() => {
-    updateSection('experience', experiences);
+    updateSection("experience", experiences);
   }, [experiences]);
 
   const handleChange = (index, e) => {
     const { name, value, type, checked } = e.target;
     setExperiences((prev) => {
       const updated = [...prev];
-      updated[index][name] = type === 'checkbox' ? checked : value;
+      updated[index][name] = type === "checkbox" ? checked : value;
       return updated;
     });
   };
@@ -46,7 +48,7 @@ const ExperienceForm = () => {
   const addField = (expIndex, field) => {
     setExperiences((prev) => {
       const updated = [...prev];
-      updated[expIndex][field].push('');
+      updated[expIndex][field].push("");
       return updated;
     });
   };
@@ -72,7 +74,9 @@ const ExperienceForm = () => {
 
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white shadow-md rounded-md border border-green-500">
-      <h2 className="text-2xl font-bold mb-6 text-green-700 text-center">Work Experience</h2>
+      <h2 className="text-2xl font-bold mb-6 text-green-700 text-center">
+        Work Experience
+      </h2>
       {experiences.map((experience, index) => (
         <div key={index} className="">
           <div className="flex justify-between items-center mb-2">
@@ -93,7 +97,9 @@ const ExperienceForm = () => {
           {/* Title & Company */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-green-600 text-sm font-medium mb-1">Job Title</label>
+              <label className="block text-green-600 text-sm font-medium mb-1">
+                Job Title
+              </label>
               <input
                 name="title"
                 placeholder="e.g., Frontend Developer"
@@ -103,7 +109,9 @@ const ExperienceForm = () => {
               />
             </div>
             <div>
-              <label className="block text-green-600 text-sm font-medium mb-1">Company Name</label>
+              <label className="block text-green-600 text-sm font-medium mb-1">
+                Company Name
+              </label>
               <input
                 name="companyName"
                 placeholder="e.g., Google Inc."
@@ -116,7 +124,9 @@ const ExperienceForm = () => {
 
           {/* Location */}
           <div className="mt-4">
-            <label className="block text-green-600 text-sm font-medium mb-1">Location</label>
+            <label className="block text-green-600 text-sm font-medium mb-1">
+              Location
+            </label>
             <input
               name="location"
               placeholder="e.g., Mountain View, CA"
@@ -129,7 +139,9 @@ const ExperienceForm = () => {
           {/* Dates */}
           <div className="grid grid-cols-2 gap-4 items-center mt-4">
             <div>
-              <label className="block text-green-600 text-sm font-medium mb-1">Start Date</label>
+              <label className="block text-green-600 text-sm font-medium mb-1">
+                Start Date
+              </label>
               <input
                 type="date"
                 name="startDate"
@@ -140,7 +152,9 @@ const ExperienceForm = () => {
             </div>
             {!experience.currentlyWorking && (
               <div>
-                <label className="block text-green-600 text-sm font-medium mb-1">End Date</label>
+                <label className="block text-green-600 text-sm font-medium mb-1">
+                  End Date
+                </label>
                 <input
                   type="date"
                   name="endDate"
@@ -167,20 +181,27 @@ const ExperienceForm = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
             {/* Responsibilities */}
             <div>
-              <label className="block text-green-600 text-sm font-medium mb-2">Key Responsibilities</label>
+              <label className="block text-green-600 text-sm font-medium mb-2">
+                Key Responsibilities
+              </label>
               {experience.responsibilities.map((item, idx) => (
                 <div key={idx} className="flex items-center space-x-2 mb-1">
                   <input
                     placeholder={`e.g., Developed UI components (${idx + 1})`}
                     value={item}
                     onChange={(e) =>
-                      handleArrayChange(index, 'responsibilities', idx, e.target.value)
+                      handleArrayChange(
+                        index,
+                        "responsibilities",
+                        idx,
+                        e.target.value
+                      )
                     }
                     className={inputClass}
                   />
                   <button
                     type="button"
-                    onClick={() => removeField(index, 'responsibilities', idx)}
+                    onClick={() => removeField(index, "responsibilities", idx)}
                     className="text-red-500 text-sm"
                   >
                     ❌
@@ -189,7 +210,7 @@ const ExperienceForm = () => {
               ))}
               <button
                 type="button"
-                onClick={() => addField(index, 'responsibilities')}
+                onClick={() => addField(index, "responsibilities")}
                 className="text-sm text-green-600 mt-1 hover:underline"
               >
                 + Add Responsibility
@@ -198,20 +219,29 @@ const ExperienceForm = () => {
 
             {/* Achievements */}
             <div>
-              <label className="block text-green-600 text-sm font-medium mb-2">Key Achievements</label>
+              <label className="block text-green-600 text-sm font-medium mb-2">
+                Key Achievements
+              </label>
               {experience.achievements.map((item, idx) => (
                 <div key={idx} className="flex items-center space-x-2 mb-1">
                   <input
-                    placeholder={`e.g., Improved performance by 30% (${idx + 1})`}
+                    placeholder={`e.g., Improved performance by 30% (${
+                      idx + 1
+                    })`}
                     value={item}
                     onChange={(e) =>
-                      handleArrayChange(index, 'achievements', idx, e.target.value)
+                      handleArrayChange(
+                        index,
+                        "achievements",
+                        idx,
+                        e.target.value
+                      )
                     }
                     className={inputClass}
                   />
                   <button
                     type="button"
-                    onClick={() => removeField(index, 'achievements', idx)}
+                    onClick={() => removeField(index, "achievements", idx)}
                     className="text-red-500 text-sm"
                   >
                     ❌
@@ -220,7 +250,7 @@ const ExperienceForm = () => {
               ))}
               <button
                 type="button"
-                onClick={() => addField(index, 'achievements')}
+                onClick={() => addField(index, "achievements")}
                 className="text-sm text-green-600 mt-1 hover:underline"
               >
                 + Add Achievement
@@ -230,7 +260,27 @@ const ExperienceForm = () => {
 
           {/* Work Summary */}
           <div className="mt-4">
-            <label className="block text-green-600 text-sm font-medium mb-1">Work Summary</label>
+            <div className="flex items-center justify-between">
+              <label className="block text-green-600 text-sm font-medium mb-1">
+                Work Summary
+              </label>
+              <GeneratorAi
+                Prompt={`Write a concise, professional work summary for a role as a ${
+                  experience.title || "professional"
+                } at ${experience.companyName || "a company"} in ${
+                  experience.location || "a location"
+                } from ${experience.startDate || "start date"} to ${
+                  experience.currentlyWorking
+                    ? "present"
+                    : experience.endDate || "end date"
+                }. Mention team contributions, technical skills, and key responsibilities.`}
+                onGenerate={(generatedText) => {
+                  const updated = [...experiences];
+                  updated[index].workSummery = generatedText;
+                  setExperiences(updated);
+                }}
+              />
+            </div>{" "}
             <textarea
               name="workSummery"
               placeholder="Overview of your role, team, and contributions..."
@@ -246,7 +296,8 @@ const ExperienceForm = () => {
       <button
         type="button"
         onClick={addExperience}
-className="text-green-600 hover:underline text-sm mt-4"      >
+        className="text-green-600 hover:underline text-sm mt-4"
+      >
         + Add Experience
       </button>
     </div>
