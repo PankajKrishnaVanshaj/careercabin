@@ -95,7 +95,7 @@ const ResumeAnalyzer = () => {
               AI-driven feedback in real-time.
             </p>
             <a
-              href="#analyze-section"
+              href="/resume-analyzer/upload"
               className="inline-block bg-green-600 text-white text-lg font-medium px-6 py-3 rounded-full shadow-lg hover:bg-green-700 transition hover:scale-105"
             >
               🚀 Start Analyzing Now
@@ -117,14 +117,16 @@ const ResumeAnalyzer = () => {
       <section className="bg-white py-20 px-6 md:px-12">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold text-green-800 mb-6 text-center">
-  Why Choose <span className="text-green-900">PK CareerCabin</span> Resume Analyzer?
-</h2>
-<p className="text-green-700 text-lg md:text-xl max-w-3xl mx-auto text-center mb-12 leading-relaxed">
-  At PK CareerCabin, we’re dedicated to your career success. Our advanced AI-powered resume analyzer 
-  evaluates your resume against the most demanding hiring standards. Whether you're a recent graduate 
-  or a seasoned professional, we help you showcase your strengths and stand out.
-</p>
-
+            Why Choose <span className="text-green-900">PK CareerCabin</span>{" "}
+            Resume Analyzer?
+          </h2>
+          <p className="text-green-700 text-lg md:text-xl max-w-3xl mx-auto text-center mb-12 leading-relaxed">
+            At PK CareerCabin, we’re dedicated to your career success. Our
+            advanced AI-powered resume analyzer evaluates your resume against
+            the most demanding hiring standards. Whether you're a recent
+            graduate or a seasoned professional, we help you showcase your
+            strengths and stand out.
+          </p>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
@@ -232,11 +234,10 @@ const ResumeAnalyzer = () => {
                 key={index}
                 className="bg-white p-6 rounded-2xl border border-green-200 shadow hover:shadow-md transition text-left"
               >
-                  
                 <p className="text-green-700 text-sm italic">“{user.review}”</p>
-                  <div className="mt-4 text-sm font-semibold text-green-700">
-                    {user.name}
-                  </div>
+                <div className="mt-4 text-sm font-semibold text-green-700">
+                  {user.name}
+                </div>
               </div>
             ))}
           </div>
@@ -252,7 +253,7 @@ const ResumeAnalyzer = () => {
             Start your resume check now—it's fast and free!
           </p>
           <a
-            href="#analyze-section"
+            href="/resume-analyzer/upload"
             className="inline-block mt-4 bg-white text-green-700 font-semibold px-6 py-3 rounded-full shadow hover:bg-green-100 transition"
           >
             📄 Upload Resume
