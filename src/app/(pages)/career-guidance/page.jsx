@@ -85,7 +85,7 @@ const CareerGuidance = () => {
               based on your interests, strengths, and personality. Fast, free, and personalized.
             </p>
             <a
-              href="/career-guidance/start"
+              href="/career-guidance/create"
               className="inline-block bg-green-600 text-white px-8 py-3 rounded-xl shadow-lg hover:bg-green-700 transition-all duration-200 hover:scale-105"
             >
               🚀 Start Career Guidance
@@ -216,7 +216,7 @@ const CareerGuidance = () => {
             Discover careers that align with your true self — guided by AI and backed by psychology.
           </p>
           <a
-            href="/career-guidance/start"
+            href="/career-guidance/create"
             className="inline-block bg-green-700 text-white px-10 py-4 rounded-full text-lg font-semibold shadow-md hover:bg-green-800 hover:scale-105 transition-all"
           >
             🚀 Begin Assessment

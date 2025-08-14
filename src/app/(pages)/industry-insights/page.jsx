@@ -96,10 +96,10 @@ return (
               <strong>PK CareerCabin</strong>.
             </p>
             <a
-              href="/blog"
+              href="/industry-insights/check"
               className="inline-block bg-green-600 text-white px-8 py-3 rounded-xl shadow-lg hover:bg-green-700 transition-all duration-200 hover:scale-105"
             >
-              📘 Read Insights Now
+              📘 Insights Now
             </a>
           </div>
 
@@ -235,10 +235,10 @@ return (
             shift in the job market again.
           </p>
           <a
-            href="/blog"
+            href="/industry-insights/check"
             className="inline-block bg-green-700 text-white px-10 py-4 rounded-full text-lg font-semibold shadow-md hover:bg-green-800 hover:scale-105 transition-all"
           >
-            📘 Visit the Blog
+            📘 Check
           </a>
         </div>
       </section>
