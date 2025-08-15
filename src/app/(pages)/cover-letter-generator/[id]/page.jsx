@@ -1,10 +1,17 @@
-"use client"
-import CreateCoverLetter from './_components/CreateCoverLetter'
+"use client";
+import { useState } from "react";
+import CreateCoverLetter from "./_components/CreateCoverLetter";
+import GeneratedCoverLetter from "./_components/GeneratedCoverLetter";
 
 const CoverLetterGeneratorId = () => {
-  return (
-    <div><CreateCoverLetter/></div>
-  )
-}
+  const [coverLetter, setCoverLetter] = useState("");
 
-export default CoverLetterGeneratorId
+  return (
+    <div className="space-y-8">
+      {!coverLetter?<CreateCoverLetter setCoverLetter={setCoverLetter} />:
+      <GeneratedCoverLetter coverLetter={coverLetter} />}
+    </div>
+  );
+};
+
+export default CoverLetterGeneratorId;

@@ -1,9 +1,11 @@
+"use client";
+
 import { useState } from "react";
 import { Send, Loader2 } from "lucide-react";
 import runChat from "@/utils/AIModal";
 import { IndustryInsightsPrompt } from "@/constants/IndustryInsights";
 
-export default function CheckIndustryInsights() {
+export default function CheckIndustryInsights({ setInsights }) {
   const [formData, setFormData] = useState({
     industry: "",
     region: "",
@@ -12,7 +14,6 @@ export default function CheckIndustryInsights() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [insights, setInsights] = useState("");
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -27,11 +28,13 @@ export default function CheckIndustryInsights() {
 
     try {
       const { industry, region, timeFrame, focusArea } = formData;
-
       const res = await runChat(
         IndustryInsightsPrompt(industry, region, timeFrame, focusArea)
       );
-      setInsights(res);
+      setInsights( res
+        .replace(/^\s*```[a-z]*\s*/i, "") // removes ```lang
+        .replace(/```$/, "") // removes trailing ```
+        .trim()); // pass the result up to the parent
     } catch (error) {
       console.error("Error generating insights:", error);
     } finally {
@@ -41,7 +44,6 @@ export default function CheckIndustryInsights() {
 
   return (
     <div className="w-full mx-auto bg-gradient-to-br from-green-50 via-white to-green-50 shadow-xl rounded-3xl p-10">
-      {/* Header */}
       <div className="text-center mb-10">
         <h1 className="text-4xl font-extrabold text-green-700 mb-3">
           Industry Insights & Trends
@@ -52,32 +54,15 @@ export default function CheckIndustryInsights() {
         </p>
       </div>
 
-      {/* Form */}
       <form
         onSubmit={handleSubmit}
         className="grid grid-cols-1 md:grid-cols-2 gap-6"
       >
         {[
-          {
-            label: "Industry / Sector",
-            name: "industry",
-            placeholder: "e.g., Technology, Healthcare, Finance",
-          },
-          {
-            label: "Region (Optional)",
-            name: "region",
-            placeholder: "e.g., USA, Europe, Asia",
-          },
-          {
-            label: "Time Frame",
-            name: "timeFrame",
-            placeholder: "e.g., 2025, Next 6 months",
-          },
-          {
-            label: "Focus Area",
-            name: "focusArea",
-            placeholder: "e.g., AI trends, market growth, hiring patterns",
-          },
+          { label: "Industry / Sector", name: "industry", placeholder: "e.g., Technology, Healthcare, Finance" },
+          { label: "Region (Optional)", name: "region", placeholder: "e.g., USA, Europe, Asia" },
+          { label: "Time Frame", name: "timeFrame", placeholder: "e.g., 2025, Next 6 months" },
+          { label: "Focus Area", name: "focusArea", placeholder: "e.g., AI trends, market growth, hiring patterns" },
         ].map((field) => (
           <div key={field.name}>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -94,7 +79,6 @@ export default function CheckIndustryInsights() {
           </div>
         ))}
 
-        {/* Submit */}
         <div className="md:col-span-2 flex justify-center">
           <button
             type="submit"
@@ -113,18 +97,6 @@ export default function CheckIndustryInsights() {
           </button>
         </div>
       </form>
-
-      {/* Result */}
-      {insights && (
-        <div className="mt-10 p-6 bg-white rounded-xl shadow-md border border-gray-200">
-          <h2 className="text-2xl font-bold text-green-700 mb-4">
-            Market Insights
-          </h2>
-          <div className="text-gray-700 whitespace-pre-wrap leading-relaxed">
-            {insights}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

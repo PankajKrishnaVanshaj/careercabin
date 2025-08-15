@@ -1,13 +1,18 @@
-"use client"
+"use client";
 
-import CreateInterviewPreparation from "./_components/CreateInterviewPreparation"
+import { useState } from "react";
+import CreateInterviewPreparation from "./_components/CreateInterviewPreparation";
+import GeneratedInterviewPreparation from "./_components/GeneratedInterviewPreparation";
 
 const InterviewPreparationId = () => {
-  return (
-    <div>
-      <CreateInterviewPreparation/>
-    </div>
-  )
-}
+  const [result, setResult] = useState("");
 
-export default InterviewPreparationId
+  return (
+    <div className="space-y-8">
+     { !result?<CreateInterviewPreparation setResult={setResult} />:
+      <GeneratedInterviewPreparation result={result} />}
+    </div>
+  );
+};
+
+export default InterviewPreparationId;

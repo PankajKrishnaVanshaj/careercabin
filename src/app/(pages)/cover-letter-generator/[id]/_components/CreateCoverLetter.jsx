@@ -4,7 +4,7 @@ import { Send, Loader2 } from "lucide-react";
 import runChat from "@/utils/AIModal";
 import { CoverLetterGeneratorPrompt } from "@/constants/CoverLetterGenerator";
 
-export default function CreateCoverLetter() {
+export default function CreateCoverLetter({ setCoverLetter }) {
   const [formData, setFormData] = useState({
     fullName: "",
     jobTitle: "",
@@ -18,7 +18,6 @@ export default function CreateCoverLetter() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [coverLetter, setCoverLetter] = useState("");
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -33,7 +32,10 @@ export default function CreateCoverLetter() {
     try {
       const prompt = CoverLetterGeneratorPrompt({ ...formData });
       const res = await runChat(prompt);
-      setCoverLetter(res);
+      setCoverLetter( res
+        .replace(/^\s*```[a-z]*\s*/i, "") // removes ```lang
+        .replace(/```$/, "") // removes trailing ```
+        .trim()); // Pass result up to parent
     } catch (error) {
       console.error("Error generating cover letter:", error);
     } finally {
@@ -43,7 +45,6 @@ export default function CreateCoverLetter() {
 
   return (
     <div className="w-full mx-auto bg-gradient-to-br from-green-50 via-white to-green-50 shadow-xl rounded-3xl p-10">
-      {/* Header */}
       <div className="text-center mb-10">
         <h1 className="text-4xl font-extrabold text-green-700 mb-3">
           AI Cover Letter Generator
@@ -54,38 +55,19 @@ export default function CreateCoverLetter() {
         </p>
       </div>
 
-      {/* Form */}
       <form
         onSubmit={handleSubmit}
         className="grid grid-cols-1 md:grid-cols-2 gap-6"
       >
         {/* Short text inputs */}
         {[
-          {
-            label: "Full Name",
-            name: "fullName",
-            placeholder: "e.g., Alex Johnson",
-          },
-          {
-            label: "Target Job Title",
-            name: "jobTitle",
-            placeholder: "e.g., Software Engineer",
-          },
-          {
-            label: "Company Name",
-            name: "companyName",
-            placeholder: "e.g., Google",
-          },
-          {
-            label: "Hiring Manager Name",
-            name: "hiringManager",
-            placeholder: "e.g., Mr. John Smith",
-          },
+          { label: "Full Name", name: "fullName", placeholder: "e.g., Alex Johnson" },
+          { label: "Target Job Title", name: "jobTitle", placeholder: "e.g., Software Engineer" },
+          { label: "Company Name", name: "companyName", placeholder: "e.g., Google" },
+          { label: "Hiring Manager Name", name: "hiringManager", placeholder: "e.g., Mr. John Smith" },
         ].map((field) => (
           <div key={field.name}>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              {field.label}
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{field.label}</label>
             <input
               type="text"
               name={field.name}
@@ -99,39 +81,14 @@ export default function CreateCoverLetter() {
 
         {/* Long text inputs */}
         {[
-          {
-            label: "Relevant Experience",
-            name: "experience",
-            placeholder: "e.g., 3 years in full-stack development",
-          },
-          {
-            label: "Key Skills",
-            name: "skills",
-            placeholder: "e.g., React, Node.js, UI/UX",
-          },
-          {
-            label: "Achievements",
-            name: "achievements",
-            placeholder:
-              "e.g., Led a team to deliver project ahead of schedule",
-          },
-          {
-            label: "Motivation",
-            name: "motivation",
-            placeholder:
-              "e.g., Passionate about innovation and solving real-world problems",
-          },
-          {
-            label: "Values Alignment",
-            name: "valuesAlignment",
-            placeholder:
-              "e.g., My dedication to sustainability aligns with your company's mission",
-          },
+          { label: "Relevant Experience", name: "experience", placeholder: "e.g., 3 years in full-stack development" },
+          { label: "Key Skills", name: "skills", placeholder: "e.g., React, Node.js, UI/UX" },
+          { label: "Achievements", name: "achievements", placeholder: "e.g., Led a team to deliver project ahead of schedule" },
+          { label: "Motivation", name: "motivation", placeholder: "e.g., Passionate about innovation and solving real-world problems" },
+          { label: "Values Alignment", name: "valuesAlignment", placeholder: "e.g., My dedication to sustainability aligns with your company's mission" },
         ].map((field) => (
           <div key={field.name} className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              {field.label}
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{field.label}</label>
             <textarea
               name={field.name}
               value={formData[field.name]}
@@ -162,18 +119,6 @@ export default function CreateCoverLetter() {
           </button>
         </div>
       </form>
-
-      {/* Result */}
-      {coverLetter && (
-        <div className="mt-10 p-6 bg-white rounded-xl shadow-md border border-gray-200">
-          <h2 className="text-2xl font-bold text-green-700 mb-4">
-            Your AI-Generated Cover Letter
-          </h2>
-          <div className="text-gray-700 whitespace-pre-wrap leading-relaxed">
-            {coverLetter}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

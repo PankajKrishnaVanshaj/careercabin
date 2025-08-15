@@ -1,13 +1,18 @@
 "use client";
 
+import { useState } from "react";
 import CheckIndustryInsights from "./_components/CheckIndustryInsights";
+import MarketInsights from "./_components/MarketInsights";
 
 const IndustryInsightsId = () => {
-  return (
-    <div>
-      <CheckIndustryInsights/>
-    </div>
-  )
-}
+  const [insights, setInsights] = useState("");
 
-export default IndustryInsightsId
+  return (
+    <div className="space-y-8">
+     { !insights?<CheckIndustryInsights setInsights={setInsights} />:
+      <MarketInsights insights={insights} />}
+    </div>
+  );
+};
+
+export default IndustryInsightsId;

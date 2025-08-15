@@ -1,24 +1,24 @@
 "use client";
+
 import { InterviewPreparationPrompt } from "@/constants/InterviewPreparation";
 import runChat from "@/utils/AIModal";
 import React, { useState } from "react";
 
-const CreateInterviewPreparation = () => {
+const CreateInterviewPreparation = ({ setResult }) => {
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState("");
   const [formData, setFormData] = useState({
     role: "",
     company: "",
     industry: "",
     experienceLevel: "",
     skills: "",
-    description: ""
+    description: "",
   });
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -28,7 +28,12 @@ const CreateInterviewPreparation = () => {
 
     try {
       const res = await runChat(InterviewPreparationPrompt(formData));
-      setResult(res);
+      setResult(
+        res
+          .replace(/^\s*```[a-z]*\s*/i, "") // removes ```lang
+          .replace(/```$/, "") // removes trailing ```
+          .trim()
+      ); // pass generated result to parent
     } catch (error) {
       console.error("Error generating interview prep:", error);
     } finally {
@@ -44,7 +49,8 @@ const CreateInterviewPreparation = () => {
           Interview Preparation
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          Enter the details below to generate a personalized interview preparation guide.
+          Enter the details below to generate a personalized interview
+          preparation guide.
         </p>
       </div>
 
@@ -55,7 +61,7 @@ const CreateInterviewPreparation = () => {
           { name: "company", label: "Company Name" },
           { name: "industry", label: "Industry" },
           { name: "experienceLevel", label: "Experience Level" },
-          { name: "skills", label: "Key Skills (comma-separated)" }
+          { name: "skills", label: "Key Skills (comma-separated)" },
         ].map((field) => (
           <div key={field.name} className="col-span-1">
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -72,7 +78,7 @@ const CreateInterviewPreparation = () => {
           </div>
         ))}
 
-        {/* Description Field (Full Width) */}
+        {/* Description Field */}
         <div className="col-span-1 md:col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Job Description / Additional Details
@@ -102,16 +108,6 @@ const CreateInterviewPreparation = () => {
           {loading ? "⏳ Generating..." : "🚀 Generate Questions"}
         </button>
       </div>
-
-      {/* Result */}
-      {result && (
-        <div className="mt-8 bg-white border border-gray-200 rounded-lg p-5 shadow">
-          <h2 className="text-xl font-semibold text-gray-800 mb-3">
-            Generated Interview Preparation
-          </h2>
-          <pre className="whitespace-pre-wrap text-gray-700 text-sm">{result}</pre>
-        </div>
-      )}
     </div>
   );
 };
