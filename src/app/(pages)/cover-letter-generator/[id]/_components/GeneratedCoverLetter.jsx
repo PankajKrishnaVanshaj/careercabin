@@ -8,13 +8,13 @@ const GeneratedCoverLetter = ({ coverLetter }) => {
     typeof coverLetter === "string" ? coverLetter : String(coverLetter);
 
   return (
-    <div className="bg-gradient-to-br from-green-50 to-white shadow-xl rounded-3xl p-8 mt-10 border border-green-200">
+    <div className="max-w-7xl mx-auto px-6 py-12">
       {/* Header */}
-      <div className="flex items-center gap-3 mb-6 border-b border-green-200 pb-4">
-        <div className="p-3 bg-green-100 rounded-2xl shadow-md">
-          <FileText className="w-6 h-6 text-green-700" />
+      <div className="flex items-center gap-3 mb-12">
+        <div className="p-3 rounded-2xl bg-green-100 flex items-center justify-center">
+          <FileText className="w-7 h-7 text-green-700" />
         </div>
-        <h2 className="text-2xl font-bold text-green-800">
+        <h2 className="text-4xl font-bold text-green-800 tracking-tight">
           Your Generated Cover Letter
         </h2>
       </div>

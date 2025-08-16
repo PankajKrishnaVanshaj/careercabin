@@ -71,7 +71,7 @@ const IndustryInsights = () => {
       },
     },
   };
-return (
+  return (
     <>
       <script
         type="application/ld+json"
@@ -83,8 +83,7 @@ return (
           {/* Hero Text */}
           <div>
             <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight tracking-tight">
-              Explore{" "}
-              <span className="text-green-700">Industry Insights</span>
+              Explore <span className="text-green-700">Industry Insights</span>
               <br />
               <span className="text-green-600">
                 and Career Trends that Matter
@@ -99,14 +98,14 @@ return (
               href="/industry-insights/check"
               className="inline-block bg-green-600 text-white px-8 py-3 rounded-xl shadow-lg hover:bg-green-700 transition-all duration-200 hover:scale-105"
             >
-              📘 Insights Now
+              📘 Check Industry Trends
             </a>
           </div>
 
           {/* Hero Image */}
           <div className="flex justify-center">
             <img
-              src="/careercabin.png"
+              src="/industry-insights.png"
               alt="Industry Insights"
               className="w-full max-w-md rounded-2xl shadow-2xl shadow-green-500 border border-green-200"
             />
@@ -116,13 +115,15 @@ return (
         {/* Why Choose */}
         <div className="mt-24 max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-extrabold text-center text-green-800 mb-6">
-  Why Choose <span className="text-green-900">PK CareerCabin</span> Industry Insights?
-</h2>
-<p className="text-green-700 text-lg md:text-xl text-center max-w-3xl mx-auto mb-12 leading-relaxed">
-  Stay ahead of the curve with expert-driven, actionable insights from PK CareerCabin. 
-  Whether you're exploring new industries, planning your next move, or actively job hunting — 
-  our curated content empowers smarter career decisions.
-</p>
+            Why Choose <span className="text-green-900">PK CareerCabin</span>{" "}
+            Industry Insights?
+          </h2>
+          <p className="text-green-700 text-lg md:text-xl text-center max-w-3xl mx-auto mb-12 leading-relaxed">
+            Stay ahead of the curve with expert-driven, actionable insights from
+            PK CareerCabin. Whether you're exploring new industries, planning
+            your next move, or actively job hunting — our curated content
+            empowers smarter career decisions.
+          </p>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
@@ -154,13 +155,11 @@ return (
 
         {/* How It Works */}
         <div className="mt-28 max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12">
-            How It Works
-          </h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12">How It Works</h2>
           <p className="text-green-800 mb-10 max-w-2xl mx-auto">
-            Our platform breaks down complex labor market data and expert
-            advice into easy-to-understand articles and tools. Here's what you
-            can expect:
+            Our platform breaks down complex labor market data and expert advice
+            into easy-to-understand articles and tools. Here's what you can
+            expect:
           </p>
           <div className="grid md:grid-cols-3 gap-8 text-left">
             {[
@@ -238,7 +237,7 @@ return (
             href="/industry-insights/check"
             className="inline-block bg-green-700 text-white px-10 py-4 rounded-full text-lg font-semibold shadow-md hover:bg-green-800 hover:scale-105 transition-all"
           >
-            📘 Check
+            📘 Discover Industry Insights
           </a>
         </div>
       </section>

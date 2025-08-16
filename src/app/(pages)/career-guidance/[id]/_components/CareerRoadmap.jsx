@@ -12,10 +12,10 @@ export default function CareerRoadmap({ roadmap }) {
   const data = typeof roadmap === "string" ? JSON.parse(roadmap) : roadmap;
 
   return (
-    <div className="p-8 bg-gradient-to-br from-green-50 via-white to-blue-50 rounded-2xl shadow-xl space-y-12 animate-fadeIn">
+    <div className="p-8 rounded-2xl shadow-xl space-y-12 animate-fadeIn">
       {/* Header */}
       <h2 className="text-4xl font-extrabold text-green-700 text-center flex items-center justify-center gap-3">
-        <Rocket className="w-9 h-9 text-green-600" /> Your Career Roadmap
+        <Rocket className="w-9 h-9 text-green-800" /> Your Career Roadmap
       </h2>
 
       {/* Introduction */}

@@ -102,57 +102,65 @@ export default function ResumeScore({ result }) {
   );
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 grid grid-cols-1 md:grid-cols-3 gap-8">
-      {/* Left Column - Overall Score */}
-      <div className="col-span-1 flex flex-col items-center justify-center p-6 rounded-2xl bg-gradient-to-br from-green-50 to-white border border-green-100 shadow-inner">
-        {renderCircle(data?.overallScore ?? 0, 150)}
-        <h2 className="text-xl font-semibold text-green-700 mt-4">
-          Overall Score
-        </h2>
-      </div>
+    <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+  {/* Heading */}
+  <h2 className="text-4xl font-bold text-green-800 mb-6 text-center">
+     Resume Analyzed Score
+  </h2>
 
-      {/* Right Column - Sections */}
-      <div className="col-span-2 divide-y divide-gray-200">
-        {sections.map((section) => {
-          const score = data?.[section.key]?.score ?? null;
-          const isOpen = openSection === section.key;
-          return (
-            <div key={section.key} className="py-4">
-              {/* Section Header */}
-              <div
-                className="flex items-center justify-between cursor-pointer group"
-                onClick={() => setOpenSection(isOpen ? null : section.key)}
-              >
-                <div className="flex items-center gap-4">
-                  {renderCircle(score ?? 0)}
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
-                      {section.icon}
-                      {section.label}
-                    </h3>
-                  </div>
-                </div>
-                <ChevronDown
-                  size={18}
-                  className={`transition-transform duration-300 ${
-                    isOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </div>
-
-              {/* Animated Tips */}
-              <div
-                className={`overflow-hidden transition-[max-height] duration-500 ease-in-out ${
-                  isOpen ? "max-h-96 mt-3" : "max-h-0"
-                }`}
-              >
-                {data?.[section.key]?.tips &&
-                  renderTips(data[section.key].tips)}
-              </div>
-            </div>
-          );
-        })}
-      </div>
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {/* Left Column - Overall Score */}
+    <div className="col-span-1 flex flex-col items-center justify-center p-6 rounded-2xl bg-gradient-to-br from-green-50 to-white border border-green-100 shadow-inner">
+      {renderCircle(data?.overallScore ?? 0, 150)}
+      <h2 className="text-xl font-semibold text-green-700 mt-4">
+        Overall Score
+      </h2>
     </div>
+
+    {/* Right Column - Sections */}
+    <div className="col-span-2 divide-y divide-gray-200">
+      {sections.map((section) => {
+        const score = data?.[section.key]?.score ?? null;
+        const isOpen = openSection === section.key;
+        return (
+          <div key={section.key} className="py-4">
+            {/* Section Header */}
+            <div
+              className="flex items-center justify-between cursor-pointer group"
+              onClick={() => setOpenSection(isOpen ? null : section.key)}
+            >
+              <div className="flex items-center gap-4">
+                {renderCircle(score ?? 0)}
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                    {section.icon}
+                    {section.label}
+                  </h3>
+                </div>
+              </div>
+              <ChevronDown
+                size={18}
+                className={`transition-transform duration-300 ${
+                  isOpen ? "rotate-180" : ""
+                }`}
+              />
+            </div>
+
+            {/* Animated Tips */}
+            <div
+              className={`overflow-hidden transition-[max-height] duration-500 ease-in-out ${
+                isOpen ? "max-h-96 mt-3" : "max-h-0"
+              }`}
+            >
+              {data?.[section.key]?.tips &&
+                renderTips(data[section.key].tips)}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</div>
+
   );
 }

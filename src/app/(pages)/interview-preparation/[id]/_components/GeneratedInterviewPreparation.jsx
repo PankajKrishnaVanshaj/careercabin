@@ -43,10 +43,10 @@ const GeneratedInterviewPreparation = ({ result }) => {
   const [activeTab, setActiveTab] = useState("generalQuestions");
 
   return (
-    <div className="mx-auto my-10 px-4">
+    <div className="max-w-7xl mx-auto px-6 py-12">
       {/* Header */}
       <div className="text-center mb-10">
-        <h2 className="text-4xl font-bold text-green-800">
+        <h2 className="text-4xl font-bold text-green-800 tracking-tight">
           Interview Preparation Hub
         </h2>
         <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
