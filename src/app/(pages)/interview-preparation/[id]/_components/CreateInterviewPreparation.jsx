@@ -73,7 +73,7 @@ const CreateInterviewPreparation = ({ setResult }) => {
               value={formData[field.name]}
               onChange={handleChange}
               placeholder={`Enter ${field.label.toLowerCase()}`}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
             />
           </div>
         ))}
@@ -89,7 +89,7 @@ const CreateInterviewPreparation = ({ setResult }) => {
             onChange={handleChange}
             placeholder="Paste the job description or add any additional details here..."
             rows={4}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition resize-none"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition resize-none"
           ></textarea>
         </div>
       </div>
@@ -99,10 +99,10 @@ const CreateInterviewPreparation = ({ setResult }) => {
         <button
           onClick={handleGenerate}
           disabled={loading}
-          className={`w-full py-3 px-4 rounded-lg text-lg font-semibold shadow focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 transition ${
+          className={`w-full py-3 px-4 rounded-lg text-lg font-semibold shadow focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-1 transition ${
             loading
-              ? "bg-blue-400 text-white cursor-not-allowed"
-              : "bg-blue-600 text-white hover:bg-blue-700"
+              ? "bg-green-400 text-white cursor-not-allowed"
+              : "bg-green-600 text-white hover:bg-green-700"
           }`}
         >
           {loading ? "⏳ Generating..." : "🚀 Generate Questions"}

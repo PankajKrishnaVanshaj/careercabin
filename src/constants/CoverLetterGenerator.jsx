@@ -27,9 +27,16 @@ Sincerely,
 
 export const CoverLetterGeneratorPrompt = ({
   fullName,
-  jobTitle,
-  companyName,
+  address,
+  cityStateZip,
+  email,
+  phone,
+  date,
   hiringManager,
+  companyName,
+  companyAddress,
+  companyCityStateZip,
+  jobTitle,
   experience,
   skills,
   achievements,
@@ -41,9 +48,18 @@ You are an award-winning career consultant and expert in persuasive, high-impact
 Your task: Write a **personalized, professional, and achievement-focused cover letter** for the following candidate details:
 
 Full Name: ${fullName || "Not Provided"}
-Target Job Title: ${jobTitle || "Not Provided"}
-Company Name: ${companyName || "Not Provided"}
+Address: ${address || "Not Provided"}
+City, State, ZIP: ${cityStateZip || "Not Provided"}
+Email Address: ${email || "Not Provided"}
+Phone Number: ${phone || "Not Provided"}
+Date: ${date || "Not Provided"}
+
 Hiring Manager: ${hiringManager || "Not Provided"}
+Company Name: ${companyName || "Not Provided"}
+Company Address: ${companyAddress || "Not Provided"}
+Company City, State, ZIP: ${companyCityStateZip || "Not Provided"}
+
+Target Job Title: ${jobTitle || "Not Provided"}
 Relevant Experience: ${experience || "Not Provided"}
 Key Skills: ${skills || "Not Provided"}
 Key Achievements: ${achievements || "Not Provided"}

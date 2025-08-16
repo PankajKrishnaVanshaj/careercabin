@@ -5,19 +5,19 @@ const AIResponseFormat = `
     { "title": "string", "description": "string", "source": "string" }
   ],
   "opportunities": [
-    { "title": "string", "description": "string" }
+    { "title": "string", "description": "string", "marketSize": "string", "growthRate": "string" }
   ],
   "challenges": [
-    { "title": "string", "description": "string" }
+    { "title": "string", "description": "string", "impact": "string" }
   ],
   "futureOutlook": [
-    { "prediction": "string", "reasoning": "string" }
+    { "prediction": "string", "reasoning": "string", "confidenceLevel": "string" }
   ],
   "recommendedActions": [
-    { "action": "string", "details": "string" }
+    { "action": "string", "details": "string", "priority": "string", "timeHorizon": "string" }
   ],
   "realWorldExamples": [
-    { "company": "string", "description": "string" }
+    { "company": "string", "description": "string", "outcome": "string", "source": "string" }
   ]
 }
 `;

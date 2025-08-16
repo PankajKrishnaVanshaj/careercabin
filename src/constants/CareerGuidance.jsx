@@ -1,48 +1,48 @@
 const AIResponseFormat = `
 {
-  "introduction": "string - 2-3 sentences, motivational, personalized to the user, and forward-looking",
+  "introduction": "string - 2-3 sentences, motivational, directly referencing the user's background, aspirations, and challenges, while projecting a clear forward-looking vision.",
   "career_roadmap": [
     {
       "phase": "string - e.g., 'Foundation', 'Skill Building', 'Industry Entry', 'Growth & Leadership'",
       "timeframe": "string - e.g., '3-6 months', '6-12 months'",
       "goals": [
-        "string - specific, measurable, and relevant to target role"
+        "string - SMART goal (specific, measurable, achievable, relevant, time-bound, directly tied to the target role)"
       ],
       "actions": [
-        "string - practical, actionable task user can start immediately"
+        "string - actionable next step the user can realistically begin now, practical and detailed"
       ],
       "resources": [
         {
-          "type": "string - e.g., 'Course', 'Book', 'Mentor', 'Event'",
-          "name": "string - real, reputable resource",
-          "url": "string - direct, working link"
+          "type": "string - e.g., 'Course', 'Book', 'Mentor', 'Event', 'Community'",
+          "name": "string - real, reputable resource (no placeholders, no vague text like 'online course')",
+          "url": "string - direct working link to the resource"
         }
       ]
     }
   ],
   "skill_development": [
     {
-      "skill": "string - critical for target role",
-      "importance": "string - why this matters for the user's career path",
+      "skill": "string - critical skill for the target role (hard or soft)",
+      "importance": "string - why mastering this skill is essential for career progression and how it connects to the user's goals",
       "learning_resources": [
         {
-          "name": "string - specific resource name",
-          "platform": "string - e.g., Coursera, LinkedIn Learning, Udemy",
-          "url": "string - direct, working link"
+          "name": "string - specific resource (e.g., 'Deep Learning Specialization by Andrew Ng')",
+          "platform": "string - e.g., Coursera, LinkedIn Learning, Udemy, O’Reilly",
+          "url": "string - direct working link"
         }
       ]
     }
   ],
   "networking_strategy": [
     {
-      "tip": "string - clear, practical networking advice",
-      "platform_or_event": "string - e.g., LinkedIn, industry conference, meetup"
+      "tip": "string - clear, actionable networking advice directly relevant to the user's field (no vague phrases like 'just connect with people')",
+      "platform_or_event": "string - specific platform, group, or event (e.g., LinkedIn AI group, AWS re:Invent, PyCon)"
     }
   ],
   "milestone_checkpoints": [
     {
-      "milestone": "string - what success looks like at this stage",
-      "expected_timeframe": "string - realistic timeframe for achieving it"
+      "milestone": "string - measurable indicator of success (e.g., 'Published 3 technical articles on LinkedIn that gained >500 views each')",
+      "expected_timeframe": "string - realistic timeframe aligned with career roadmap phases"
     }
   ]
 }
@@ -57,16 +57,17 @@ export const CareerGuidancePrompt = ({
   interests,
   challenges,
 }) => `
-You are an elite career strategist who creates **precise, actionable, and inspiring long-term career roadmaps**.
+You are an **elite career strategist** who designs **personalized, precise, and inspiring career roadmaps**. 
+The roadmap must be **structured, data-rich, and practical** — no vague advice.
 
 🎯 **Objective**
-Based on the user's profile, design a step-by-step plan that:
-1. Breaks the career journey into clear **phases with timelines**.
-2. Suggests **specific skills to acquire** and why they matter.
-3. Recommends **only top-tier, verified resources** (e.g., Coursera, LinkedIn Learning, reputable books, notable industry events).
-4. Includes **measurable goals and practical actions** for each phase.
-5. Adds **networking strategies** that are achievable and relevant to the industry.
-6. Ends with **milestone checkpoints** that define what progress looks like.
+Using the user profile, produce a career roadmap that:
+1. Breaks the journey into **phases with realistic timelines**.
+2. Defines **SMART goals** (specific, measurable, achievable, relevant, time-bound).
+3. Suggests **critical skills** to acquire, with a clear explanation of their importance.
+4. Recommends **only verified, globally recognized resources** (Coursera, edX, LinkedIn Learning, reputable books, notable conferences, or active communities). ❌ No placeholders, ❌ No broken links.
+5. Provides **networking strategies** tailored to the user’s industry (specific communities, events, meetups).
+6. Ends with **milestone checkpoints** that act as measurable success markers.
 
 🧾 **User Profile**
 - Name: ${name || "Not provided"}
@@ -78,11 +79,12 @@ Based on the user's profile, design a step-by-step plan that:
 - Challenges: ${challenges || "Not provided"}
 
 ⚠ **Strict Output Rules**
-- Output **must** be valid JSON following the exact schema below.
-- Do not include text outside the JSON.
-- Keep all advice **clear, concise, and practical**.
-- Use only **real, high-quality resources** with working links.
-- Ensure the introduction feels **personal and motivational** without clichés.
+- Output must be **valid JSON** only, strictly following the schema below.
+- Do not include explanations, commentary, or text outside the JSON.
+- Every resource must be **specific, real, and accessible**.
+- Introduction must feel **personal and motivating**, referencing the user’s profile directly.
+- Goals, actions, and milestones must be **measurable and time-bound**.
+- Avoid vague, generic advice.
 
 📄 **Schema**
 ${AIResponseFormat}
